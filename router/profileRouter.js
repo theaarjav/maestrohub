@@ -164,7 +164,18 @@ router.put("/update", authenticate, async (req, res) => {
         if (instagram) profileObj.instagram = instagram;
         else instagram = "";
         // profileObj.image=image
-        let profile = await Profile.findOneAndUpdate({ user: req.user.id },
+        let profile=await Profile.findOne({user:req.user.id});
+        if(!profile){
+            profile = new Profile(profileObj);
+            profile = await profile.save();
+            profile.populate("user");
+            if (image == undefined || image == "" || image == null) image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTOkHm3_mPQ5PPRvGtU6Si7FJg8DVDtZ47rw&usqp=CAU"
+            await User.findById({ _id: req.user.id }, { avatar: image })
+            return res.status(200).json({
+                msg: "Profile Created Successfully"
+            })
+        }
+         profile = await Profile.findOneAndUpdate({ user: req.user.id },
             { $set: profileObj }, { new: true });
         if (!profile) return res.send(402).json({ msg: "No User Found" })
           profile=await profile.save(); 
