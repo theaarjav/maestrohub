@@ -210,7 +210,7 @@ router.get("/users/:profileID", async (req, res) => {
 router.put("/experience", authenticate, async (req, res) => {
     try {
 
-        let { title, represented, squat, bench, deadlift,snatch,cnj, location, from, to, description } =
+        let { title, represented, squat, bench, deadlift,snatch,cnj,position, location, from, to, description } =
             req.body;
         let newEd = {
             title: title,
