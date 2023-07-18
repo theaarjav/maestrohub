@@ -221,6 +221,7 @@ router.put("/experience", authenticate, async (req, res) => {
             snatch:snatch,
             cnj:cnj,
             location:location,
+            position:position,
             from:from,
             to: to ? to : "",
             description: description 
