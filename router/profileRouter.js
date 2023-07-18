@@ -232,7 +232,7 @@ router.put("/experience", authenticate, async (req, res) => {
         if (!profile) return res.status(401).json("Profile Not Found");
         profile.competitions.unshift(newEd);
         await profile.save();
-        res.status(200).json("Experience updated successfully");
+        res.status(200).json({msg:"Experience updated successfully"});
     } catch (err) {
         res.status(500).json({ err: err.message });
     }
