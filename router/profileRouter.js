@@ -244,11 +244,11 @@ router.delete("/experience/:expID", authenticate, async (req, res)=>{
 
         let profile=await Profile.findOne({user:req.user.id});
         if(!profile)res.status(401).json("Profile Not Found")
-        let index=profile.experience.map(exp=> exp._id.toString()).indexOf(delID);
+        let index=profile.competitions.map(exp=> exp._id.toString()).indexOf(delID);
         if(index!==-1){
-            profile.experience.splice(index, 1);
+            profile.competitions.splice(index, 1);
             await profile.save();
-            return res.status(200).json({msg:"Experience deleted successfully"});
+            return res.status(200).json({msg:"Competition deleted successfully"});
         }
         return res.status(403).json("Experience Not found");
     } catch (err) {
