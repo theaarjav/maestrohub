@@ -44,13 +44,13 @@ router.post("/new", authenticate, async (req, res) => {
     try {
         let {
             image,
-            company,
-            website,
+            squat,
+            bench,
+            deadlift,
             location,
-            designation,
+            trainer,
             skills,
             bio,
-            githubUserName,
             youtube,
             facebook,
             twitter,
@@ -59,14 +59,16 @@ router.post("/new", authenticate, async (req, res) => {
         } = req.body;
         let profileObj = {};
         profileObj.user = req.user.id;
-        if (company) profileObj.company = company;
-        else company = "";
-        if (website) profileObj.website = website;
-        else website = "";
+        if (squat) profileObj.squat = squat;
+        else squat = "";
+        if (bench) profileObj.bench = bench;
+        else bench = "";
+        if (deadlift) profileObj.deadlift = deadlift;
+        else deadlift = "";
         if (location) profileObj.location = location;
         else location = "";
-        if (designation) profileObj.designation = designation;
-        else designation = "";
+        if (trainer) profileObj.trainer = trainer;
+        else trainer = "";
         // console.log(skills);
         if (skills) {
             profileObj.skills = skills.toString().split(",").map((skill) => {
@@ -76,8 +78,7 @@ router.post("/new", authenticate, async (req, res) => {
         else skills = "";
         if (bio) profileObj.bio = bio;
         else bio = "";
-        if (githubUserName) profileObj.githubUserName = githubUserName;
-        else githubUserName = "";
+        
         if (youtube) profileObj.youtube = youtube;
         else youtube = "";
         if (facebook) profileObj.facebook = facebook;
@@ -120,13 +121,13 @@ router.put("/update", authenticate, async (req, res) => {
     try {
         let {
             image,
-            company,
-            website,
+            squat,
+            bench,
+            deadlift,
             location,
-            designation,
+            trainer,
             skills,
             bio,
-            githubHandle,
             youtube,
             facebook,
             twitter,
@@ -135,14 +136,16 @@ router.put("/update", authenticate, async (req, res) => {
         } = req.body;
         let profileObj = {};
         profileObj.user = req.user.id;
-        if (company) profileObj.company = company;
-        else company = "";
-        if (website) profileObj.website = website;
-        else website = "";
+        if (squat) profileObj.squat = squat;
+        else squat = "";
+        if (bench) profileObj.bench = bench;
+        else bench = "";
+        if (deadlift) profileObj.deadlift = deadlift;
+        else deadlift = "";
         if (location) profileObj.location = location;
         else location = "";
-        if (designation) profileObj.designation = designation;
-        else designation = "";
+        if (trainer) profileObj.trainer = trainer;
+        else trainer = "";
         if (skills) {
             profileObj.skills = skills.toString().split(",").map((skill) => {
                 return skill.trim();
@@ -209,16 +212,20 @@ router.get("/users/:profileID", async (req, res) => {
 router.put("/experience", authenticate, async (req, res) => {
     try {
 
-        let { title, company, location, from, description, to, current } =
+        let { title, represented, squat, bench, deadlift,snatch,cnj, location, from, to, description } =
             req.body;
         let newEd = {
             title: title,
-            company: company,
-            location: location,
-            from: from,
-            description: description,
+            represented: represented,
+            squat: squat,
+            bench: bench,
+            deadlift: deadlift,
+            snatch:snatch,
+            cnj:cnj,
+            location:location,
+            from:from,
             to: to ? to : "",
-            current: current ? current : false
+            description: description 
         }
         let profile = await Profile.findOne({ user: req.user.id }).populate(
             "user", ["name", "avatar"]

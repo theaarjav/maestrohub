@@ -7,16 +7,17 @@ const ProfileSchema= new mongoose.Schema({
         required:false
     },
     
-    company:{type:String},
-    website:{type:String},
+    // company:{type:String},
+    squat:{type:String},
+    bench:{type:String},
+    deadlift:{type:String},
     location:{
-        type:String,
-        required:false
+        
+            type:String
+        
+
     },
-    designation:{
-        type:String,
-        required:false
-    },
+    
     skills:{
         type:[String], required:false
     },
@@ -24,33 +25,28 @@ const ProfileSchema= new mongoose.Schema({
         type: String,
         required:false
     },
-    githubHandle:{
-        type:String,
-        required:false
+    trainer:{
+        type:Boolean
     },
-    experience:[{
+    competitions:[{
         title:{
             type:String
         },
-        company:{type:String},
+        represented:{type:String},
+        squat:{type:String},
+        bench:{type:String},
+        deadlift:{type:String},
+        snatch:{type:String},
+        cnj:{type:String},
+        position:{type:String},
         location:{type:String},
         from:{type:String},
         to:{type:String},
-        current:{type:Boolean},
-        description:{type:String}}
+        description:{type:String}
+    }
     ]
     ,
-    education:[
-        {
-        school: { type: String },
-        degree: { type: String },
-        fieldOfStudy: { type: String },
-        from: { type: String },
-        to: { type: String },
-        current: { type: Boolean },
-        description: { type: String },
-        }
-    ],
+    
     social:
         {
             youtube: { type: String, required: false },
