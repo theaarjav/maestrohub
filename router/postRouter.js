@@ -99,11 +99,13 @@ router.put("/likes/:postID", authenticate, async(req, res)=>{
 })
 
 
-router.put("/comments/:postID", authenticate, async(req, res)=>{
+router.put("/comments/:postID/:commentID", authenticate, async(req, res)=>{
     
     try {
 
         let postID=req.params.postID;
+        let commentID=req.params.commentID;
+        if(!commentID || commentID=="none")commentID=0;
         let user=req.user.id;
         user=await User.findById(req.user.id);
         let post=await Post.findById(postID);
@@ -112,6 +114,7 @@ router.put("/comments/:postID", authenticate, async(req, res)=>{
         let avatar=user.avatar;
         console.log( user)
         let newComment={
+            parent:commentID,
             user:user,
             text:text,
             name:name,
@@ -125,7 +128,6 @@ router.put("/comments/:postID", authenticate, async(req, res)=>{
         res.status(500).json({error})
     }
 })
-
 
 router.delete("/comments/:postID/:commentID", authenticate, async(req, res)=>{
     
